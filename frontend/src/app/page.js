@@ -63,7 +63,7 @@ export default function MapPage({ children }) {
             <MapContainer center={[48.8566, 2.3522]} zoom={2} style={{ height: "80vh", width: "100%" }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution="&copy; OpenStreetMap contributors"
+                    attribution="" // Enlève l'attribution de la carte
                 />
                 {/* Afficher les marqueurs avec l'icône correspondante */}
                 {entries.map((entry) => (
@@ -77,7 +77,7 @@ export default function MapPage({ children }) {
                         </Popup>
                     </Marker>
                 ))}
-            </MapContainer>
+            </MapContainer>a
         </div>
     );
 }

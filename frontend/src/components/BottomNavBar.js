@@ -6,7 +6,7 @@ export default function BottomNavBar() {
         <nav className="bottom-nav">
             <ul>
                 <li>
-                    <Link href="/map" className="nav-link">
+                    <Link href="/" className="nav-link">
                         Carte 🗺️
                     </Link>
                 </li>

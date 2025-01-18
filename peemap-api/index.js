@@ -36,15 +36,18 @@ app.get("/api/pee-entries", async (req, res) => {
 
 // Endpoint pour ajouter une nouvelle entrée
 app.post("/api/pee-entries", async (req, res) => {
-  const { lat, lng, description } = req.body;
-  try {
-    await db.query("INSERT INTO pee_entries (lat, lng, description) VALUES (?, ?, ?)", [lat, lng, description]);
-    res.status(201).json({ message: "Entrée ajoutée avec succès !" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Erreur lors de l'ajout de l'entrée" });
-  }
-});
+    const { lat, lng, description, icon } = req.body;
+    try {
+      const [result] = await db.query(
+        "INSERT INTO pee_entries (lat, lng, description, icon) VALUES (?, ?, ?, ?)",
+        [lat, lng, description, icon]
+      );
+      res.status(201).json({ id: result.insertId }); // Retourne l'ID généré
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Erreur lors de l'ajout de l'entrée" });
+    }
+  });
 
 // Démarrer le serveur
 app.listen(PORT, () => {

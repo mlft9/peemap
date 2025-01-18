@@ -1,0 +1,52 @@
+/* Barre de navigation fixe en bas */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #000; /* Fond noir pour les séparateurs */
+  z-index: 1000; /* Au-dessus du contenu */
+}
+
+/* Liste des liens */
+.bottom-nav ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Liens individuels */
+.bottom-nav li {
+  flex: 1; /* Chaque élément prend un espace égal */
+  text-align: center;
+  border-right: 2px solid black; /* Trait noir entre les cases */
+}
+
+/* Dernier élément sans bordure droite */
+.bottom-nav li:last-child {
+  border-right: none;
+}
+
+/* Style des liens */
+.nav-link {
+  display: block;
+  padding: 15px 0; /* Ajuste la taille des cases */
+  text-decoration: none;
+  color: black; /* Texte noir */
+  background-color: yellow; /* Fond jaune */
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Couleur de survol */
+.nav-link:hover {
+  background-color: orange; /* Change à l'orange au survol */
+}
+
+/* Style actif pour la page courante */
+.nav-link.active {
+  background-color: #ffd700; /* Jaune doré pour l'état actif */
+  color: black;
+  font-weight: bold;
+}

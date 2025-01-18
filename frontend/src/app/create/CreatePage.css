@@ -1,0 +1,120 @@
+/* Styles généraux pour la page */
+.create-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 80px; /* Espace pour la barre de navigation */
+}
+
+/* Conteneur du formulaire */
+.form-container {
+    width: 100%;
+    max-width: 500px;
+    background: yellow;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Titre de la page */
+.form-container h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Groupes de champs */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Labels */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Champs de saisie */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Bouton d'envoi */
+.submit-button {
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #ffb000;
+}
+
+/* Zone de texte */
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+/* Texte d'introduction */
+p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.emoji-options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* Option d'émoji */
+.emoji-option {
+    cursor: pointer;
+    border: 2px solid transparent;
+    padding: 5px;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.emoji-option img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Option sélectionnée */
+.emoji-option.selected {
+    border-color: #ffc107; /* Jaune pour indiquer la sélection */
+    transform: scale(1.1); /* Effet de zoom */
+}
+
+.emoji-option:hover {
+    transform: scale(1.1);
+    border-color: #ddd;
+}

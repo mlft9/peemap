@@ -1,41 +1,49 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import HamburgerMenu from "@/components/BottomNavBar";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import L from "leaflet";
 
-export default function MapPage() {
+// Désactiver le rendu côté serveur pour les composants Leaflet
+const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false });
+const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false });
+const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { ssr: false });
+
+export default function MapPage({ children }) {
     const [entries, setEntries] = useState([]);
-    const [formData, setFormData] = useState({
-        lat: "",
-        lng: "",
-        description: "",
-        icon: "heureux", // Icône par défaut
-    });
+    const [icons, setIcons] = useState({});
 
-    const icons = {
-        heureux: L.icon({
-            iconUrl: "/icons/heureux.png",
-            iconSize: [32, 32],
-        }),
-        classe: L.icon({
-            iconUrl: "/icons/classe.png",
-            iconSize: [32, 32],
-        }),
-        amoureux: L.icon({
-            iconUrl: "/icons/amoureux.png",
-            iconSize: [32, 32],
-        }),
-        malade: L.icon({
-            iconUrl: "/icons/malade.png",
-            iconSize: [32, 32],
-        }),
-        triste: L.icon({
-            iconUrl: "/icons/triste.png",
-            iconSize: [32, 32],
-        }),
-    };
+    // Charger les icônes côté client uniquement
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const L = require("leaflet");
+
+            setIcons({
+                heureux: L.icon({
+                    iconUrl: "/icons/heureux.png",
+                    iconSize: [32, 32],
+                }),
+                classe: L.icon({
+                    iconUrl: "/icons/classe.png",
+                    iconSize: [32, 32],
+                }),
+                amoureux: L.icon({
+                    iconUrl: "/icons/amoureux.png",
+                    iconSize: [32, 32],
+                }),
+                malade: L.icon({
+                    iconUrl: "/icons/malade.png",
+                    iconSize: [32, 32],
+                }),
+                triste: L.icon({
+                    iconUrl: "/icons/triste.png",
+                    iconSize: [32, 32],
+                }),
+            });
+        }
+    }, []);
 
     // Charger les entrées existantes depuis l'API
     useEffect(() => {
@@ -45,69 +53,12 @@ export default function MapPage() {
             .catch((err) => console.error("Erreur :", err));
     }, []);
 
-    // Gérer la soumission du formulaire
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await fetch("http://localhost:4000/api/pee-entries", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
-
-            if (res.ok) {
-                const newEntry = await res.json();
-                setEntries((prev) => [...prev, { ...formData, id: newEntry.id }]);
-                setFormData({ lat: "", lng: "", description: "", icon: "default" }); // Réinitialise le formulaire
-            } else {
-                console.error("Erreur lors de l'ajout du pipi");
-            }
-        } catch (err) {
-            console.error("Erreur :", err);
-        }
-    };
-
     return (
         <div>
+            <HamburgerMenu />
+            <main>{children}</main>
+
             <h1>Carte des Aventures</h1>
-
-            {/* Formulaire pour ajouter un pipi */}
-            <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
-                <input
-                    type="text"
-                    placeholder="Latitude"
-                    value={formData.lat}
-                    onChange={(e) => setFormData({ ...formData, lat: e.target.value })}
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Longitude"
-                    value={formData.lng}
-                    onChange={(e) => setFormData({ ...formData, lng: e.target.value })}
-                    required
-                />
-                <textarea
-                    placeholder="Description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    required
-                ></textarea>
-
-                {/* Sélection du logo */}
-                <select
-                    value={formData.icon}
-                    onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                >
-                    <option value="heureux">Pipi heureux</option>
-                    <option value="amoureux">Pipi amoureux</option>
-                    <option value="malade">Pipi malade</option>
-                    <option value="triste">Pipi triste</option>
-                    <option value="classe">Pipi classe</option>
-                </select>
-
-                <button type="submit">Ajouter</button>
-            </form>
 
             {/* Carte avec les marqueurs */}
             <MapContainer center={[48.8566, 2.3522]} zoom={2} style={{ height: "80vh", width: "100%" }}>

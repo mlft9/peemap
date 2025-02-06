@@ -47,7 +47,7 @@ export default function MapPage({ children }) {
 
     // Charger les entrées existantes depuis l'API
     useEffect(() => {
-        fetch("https://api.maxlft.tech/api/pee-entries")
+        fetch("https://api-peemap.maxlft.tech/api/pee-entries")
             .then((res) => res.json())
             .then((data) => setEntries(data))
             .catch((err) => console.error("Erreur :", err));

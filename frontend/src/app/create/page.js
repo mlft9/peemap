@@ -77,7 +77,7 @@ export default function CreatePage() {
         }
 
         try {
-            const res = await fetch("https://api.maxlft.tech/api/pee-entries", {
+            const res = await fetch("https://api-peemap.maxlft.tech/api/pee-entries", {
                 method: "POST",
                 body: formDataToSend, // Envoie les données sous forme de FormData
             });
